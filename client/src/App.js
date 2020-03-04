@@ -2,16 +2,21 @@ import React from 'react';
 import AppNavBar from './components/AppNavbar.js';
 import ShoppingList from './components/ShoppingList.js';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-        <AppNavBar />
-        <ShoppingList />
-    </div>
-  );
+    return (
+        <Provider store={store}>
+            <div className="App">
+                <AppNavBar />
+                <ShoppingList />
+            </div>
+        </Provider>
+    );
 }
 
 export default App;
