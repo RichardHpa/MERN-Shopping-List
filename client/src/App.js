@@ -1,6 +1,8 @@
 import React from 'react';
 import AppNavBar from './components/AppNavbar.js';
 import ShoppingList from './components/ShoppingList.js';
+import ItemModal from './components/ItemModal.js';
+import { Container } from 'reactstrap';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -13,7 +15,10 @@ function App() {
         <Provider store={store}>
             <div className="App">
                 <AppNavBar />
-                <ShoppingList />
+                <Container>
+                    <ItemModal />
+                    <ShoppingList />
+                </Container>
             </div>
         </Provider>
     );
