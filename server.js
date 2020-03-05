@@ -27,10 +27,6 @@ app.use(function(req, res, next){
     next();
 });
 
-app.get('/', function(req, res){
-    res.send('Welcome to the MERN Shopping List');
-});
-
 // Use Routes
 app.use('/api/items', items);
 
