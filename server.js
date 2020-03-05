@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const router = express.Router();
 require('dotenv').config()
+const path = require('path');
 
 const items = require('./routes/api/items')
 
@@ -33,7 +34,15 @@ app.get('/', function(req, res){
 // Use Routes
 app.use('/api/items', items);
 
+// Server static assets if we are in production
+if(process.env.NODE_ENV === 'production'){
+    //set static folder
+    app.use(express.static('client/build'));
 
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 const port = process.env.POST || 5000;
 
