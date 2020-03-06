@@ -36,7 +36,6 @@ router.post('/', (req, res) => {
                     newUser.password = hash;
                     newUser.save()
                         .then(user => {
-
                             jwt.sign(
                                 { id: user._id },
                                 process.env.jwtSecret,

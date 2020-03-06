@@ -6,8 +6,9 @@ const router = express.Router();
 require('dotenv').config()
 const path = require('path');
 
-const items = require('./routes/api/items')
-const users = require('./routes/api/users')
+const items = require('./routes/api/items');
+const users = require('./routes/api/users');
+const auth = require('./routes/api/auth');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(function(req, res, next){
 // Use Routes
 app.use('/api/items', items);
 app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
