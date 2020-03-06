@@ -1,17 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cors = require('cors');
 const router = express.Router();
 require('dotenv').config()
 const path = require('path');
 
 const items = require('./routes/api/items')
+const users = require('./routes/api/users')
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.json());
+// app.use(bodyParser.urlencoded({extended:false}));
 
 app.use(cors());
 
@@ -29,6 +30,7 @@ app.use(function(req, res, next){
 
 // Use Routes
 app.use('/api/items', items);
+app.use('/api/users', users);
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
@@ -39,8 +41,6 @@ if(process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 }
-
-
 
 const port = process.env.PORT || 5000;
 
