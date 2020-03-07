@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth');
 
 // Item Model
 const User = require('../../models/User');
@@ -11,10 +12,10 @@ const User = require('../../models/User');
 // @desc Auth user
 // @access Public
 router.post('/', (req, res) => {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
 
     // Simple validation
-    if(!name || !email || !password){
+    if(!email || !password){
         return res.status(400).json({msg: 'Please enter all fields'})
     }
 
@@ -48,5 +49,14 @@ router.post('/', (req, res) => {
                 })
         })
 });
+
+// @route GET api/auth/user
+// @desc Get user data
+// @access Private
+router.get('/user', auth, (req, res) => {
+    User.findById(req.user.id)
+        .select('-password')
+        .then(user => res.json(user) );
+})
 
 module.exports = router;
